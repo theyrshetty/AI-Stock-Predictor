@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - AI Stock Predictor</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h1 { color: #667eea; text-align: center; margin-bottom: 30px; }
+        h2 { color: #764ba2; margin-top: 30px; }
+        .nav { text-align: center; margin-bottom: 30px; }
+        .nav a {
+            color: #667eea;
+            text-decoration: none;
+            background: #f0f0f0;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        .disclaimer {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="/">← Back to Predictor</a>
+        </div>
+        
+        <h1>🤖 AI Stock Price Predictor</h1>
+        
+        <h2>How It Works</h2>
+        <p>This application uses LSTM (Long Short-Term Memory) neural networks to predict stock prices based on historical data. The model analyzes patterns in past price movements to forecast future trends.</p>
+        
+        <h2>Technology Stack</h2>
+        <ul>
+            <li><strong>Backend:</strong> Python Flask</li>
+            <li><strong>Machine Learning:</strong> TensorFlow/Keras LSTM</li>
+            <li><strong>Data Source:</strong> Yahoo Finance API</li>
+            <li><strong>Frontend:</strong> HTML, CSS, JavaScript</li>
+        </ul>
+        
+        <h2>Model Process</h2>
+        <ol>
+            <li>Fetch historical stock data (1-5 years)</li>
+            <li>Preprocess and normalize the data</li>
+            <li>Create sequences for time series prediction</li>
+            <li>Train LSTM neural network</li>
+            <li>Generate predictions for future prices</li>
+        </ol>
+        
+        <div class="disclaimer">
+            <h2>⚠️ Important Disclaimer</h2>
+            <p><strong>This tool is for educational purposes only.</strong> Stock market predictions are inherently uncertain and past performance does not guarantee future results. Always consult with financial professionals before making investment decisions.</p>
+        </div>
+        
+        <h2>About the Developer</h2>
+        <p>This project demonstrates the application of machine learning techniques to financial data analysis. It combines modern web development with artificial intelligence to create an interactive prediction tool.</p>
+    </div>
+</body>
+</html>
