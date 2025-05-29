@@ -152,7 +152,8 @@ The LSTM model consists of:
 The application supports any stock symbol available on Yahoo Finance, including:
 
 - **US Stocks**: AAPL, GOOGL, MSFT, TSLA, AMZN, etc.
-- **International Stocks**: Use appropriate suffixes (e.g., .TO for Toronto)
+- **Indian Stocks**: RELIANCE.NS, TCS.NS, INFY.NS, SAIL.NS, etc
+- **International Stocks**: Use appropriate suffixes (e.g., .TO for Toronto, .NS for India (NSE/BSE))
 - **ETFs**: SPY, QQQ, VTI, etc.
 - **Indices**: ^GSPC (S&P 500), ^IXIC (NASDAQ), etc.
 
@@ -177,13 +178,6 @@ The application supports any stock symbol available on Yahoo Finance, including:
 - **Short-term Focus**: Optimized for short to medium-term predictions
 - **Data Dependency**: Requires sufficient historical data for training
 
-## Future Enhancements
-
-- **Multi-feature Input**: Incorporate volume, technical indicators
-- **Ensemble Models**: Combine multiple prediction models
-- **Real-time Updates**: Live prediction updates
-- **Portfolio Analysis**: Multi-stock prediction and optimization
-- **API Integration**: RESTful API for external integrations
 
 ## Contributing
 
