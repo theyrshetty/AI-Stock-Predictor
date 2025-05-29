@@ -50,7 +50,7 @@ flask>=2.0.0
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/theyrshetty/AI-Stock-Predictor
    cd stock_prediction
    ```
 
