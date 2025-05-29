@@ -1,10 +1,14 @@
-from flask import Flask, render_template, request, jsonify, session, flash
-from spp2 import StockPredictor
+from flask import Flask, render_template, request, jsonify, flash
 import json
 import os
 from datetime import datetime, timedelta
 import yfinance as yf
 import traceback
+import sys
+import io
+
+# Import the modified StockPredictor class
+from spp2 import StockPredictorWeb
 
 app = Flask(__name__)
 app.secret_key = 'your-secret-key-change-this'  # Change this in production
@@ -22,7 +26,15 @@ POPULAR_STOCKS = {
     'BABA': 'Alibaba Group',
     'V': 'Visa Inc.',
     'JPM': 'JPMorgan Chase',
-    'JNJ': 'Johnson & Johnson'
+    'JNJ': 'Johnson & Johnson',
+    'RELIANCE.NS': 'Reliance Industries',
+    'TCS.NS': 'Tata Consultancy Services',
+    'INFY.NS': 'Infosys',
+    'HDFCBANK.NS': 'HDFC Bank',
+    'ICICIBANK.NS': 'ICICI Bank',
+    'SBIN.NS': 'State Bank of India',
+    'TITAN.NS': 'Titan Comapny Limited',
+    'SAIL.NS': 'Steel Authority of India Limited',
 }
 
 def validate_stock_symbol(symbol):
@@ -78,57 +90,53 @@ def index():
             # Get current price for comparison
             current_price = get_current_stock_price(symbol)
             
-            # Initialize and run prediction
-            predictor = StockPredictor(symbol=symbol, period=period)
+            # Initialize and run prediction with web-optimized class
+            predictor = StockPredictorWeb(symbol=symbol, period=period)
             
-            # Fetch and preprocess data
-            data = predictor.fetch_data()
-            if data.empty:
-                flash(f'No data available for {symbol}', 'error')
-                return render_template("index.html", popular_stocks=POPULAR_STOCKS)
-            
-            predictor.preprocess_data(lookback)
-            predictor.build_model()
-            
-            # Train model (suppress output)
-            import io, sys
+            # Suppress console output during training
             old_stdout = sys.stdout
             sys.stdout = buffer = io.StringIO()
             
             try:
-                predictor.train_model(epochs=epochs, verbose=0)
-                predictions, actual = predictor.make_predictions()
-                metrics = predictor.evaluate_model(predictions, actual)
-                future_dates, future_prices = predictor.predict_future(7)  # 7 days
+                # Run complete analysis
+                analysis_result = predictor.run_complete_analysis_web(
+                    lookback_days=lookback, 
+                    epochs=epochs
+                )
             finally:
                 sys.stdout = old_stdout
+            
+            if not analysis_result:
+                flash(f'Analysis failed for {symbol}', 'error')
+                return render_template("index.html", popular_stocks=POPULAR_STOCKS)
             
             # Prepare result data
             result = {
                 'symbol': symbol,
                 'company_name': POPULAR_STOCKS.get(symbol, 'Unknown Company'),
                 'current_price': current_price,
-                'accuracy': f"{metrics['accuracy']:.2f}",
-                'rmse': f"{metrics['rmse']:.2f}",
-                'mae': f"{metrics['mae']:.2f}",
+                'accuracy': f"{analysis_result['metrics']['accuracy']:.2f}",
+                'rmse': f"{analysis_result['metrics']['rmse']:.2f}",
+                'mae': f"{analysis_result['metrics']['mae']:.2f}",
                 'predictions': [
                     {
-                        'date': future_dates[i].strftime('%Y-%m-%d'),
-                        'price': f"{future_prices[i][0]:.2f}"
-                    } for i in range(min(7, len(future_prices)))
+                        'date': analysis_result['future_dates'][i].strftime('%Y-%m-%d'),
+                        'price': f"{analysis_result['future_predictions'][i][0]:.2f}"
+                    } for i in range(min(7, len(analysis_result['future_predictions'])))
                 ],
-                'data_range': f"{data.index[0].strftime('%Y-%m-%d')} to {data.index[-1].strftime('%Y-%m-%d')}",
+                'data_range': f"{predictor.data.index[0].strftime('%Y-%m-%d')} to {predictor.data.index[-1].strftime('%Y-%m-%d')}",
                 'training_params': {
                     'lookback_days': lookback,
                     'epochs': epochs,
                     'period': period,
-                    'data_points': len(data)
-                }
+                    'data_points': len(predictor.data)
+                },
+                'plots': analysis_result['plots']  # Add plots to result
             }
             
             # Calculate price change prediction
-            if current_price and len(future_prices) > 0:
-                predicted_price = future_prices[0][0]
+            if current_price and len(analysis_result['future_predictions']) > 0:
+                predicted_price = analysis_result['future_predictions'][0][0]
                 price_change = predicted_price - current_price
                 price_change_pct = (price_change / current_price) * 100
                 result['price_change'] = f"{price_change:+.2f}"

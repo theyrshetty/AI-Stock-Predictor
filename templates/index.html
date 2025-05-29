@@ -20,7 +20,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -300,12 +300,234 @@
             color: #721c24;
         }
 
+        /* Plot Section Styles */
+        .plots-section {
+            margin-top: 40px;
+        }
+
+        .plots-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .plot-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .plot-card h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .plot-container {
+            text-align: center;
+            background: #f8f9ff;
+            border-radius: 10px;
+            padding: 20px;
+            border: 2px solid #e0e8ff;
+        }
+
+        .plot-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .plot-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .plot-tab {
+            padding: 10px 20px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: #666;
+        }
+
+        .plot-tab.active, .plot-tab:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .plot-content {
+            display: none;
+        }
+
+        .plot-content.active {
+            display: block;
+        }
+
         .footer {
             text-align: center;
             color: white;
             margin-top: 50px;
             padding: 20px;
             opacity: 0.8;
+        }
+
+        /* Navigation styles */
+        .nav-links {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .plot-tabs {
+                justify-content: center;
+            }
+            
+            .plot-tab {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* new */
+        .search-container {
+            position: relative;
+        }
+
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        .suggestion-item {
+            padding: 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.2s ease;
+        }
+
+        .suggestion-item:hover {
+            background-color: #f8f9ff;
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion-symbol {
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .suggestion-name {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 2px;
+        }
+
+        .custom-stock-help {
+            background: #e8f2ff;
+            border: 1px solid #b3d9ff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #1e40af;
+        }
+
+        .custom-stock-help h4 {
+            margin-bottom: 8px;
+            color: #1e40af;
+        }
+
+        .custom-stock-help ul {
+            margin: 8px 0 0 20px;
+        }
+
+        .stock-info-display {
+            background: #f0f8ff;
+            border: 1px solid #b3d9ff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .stock-info-display h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .stock-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .stock-info-item {
+            color: #555;
+        }
+
+        .stock-info-item strong {
+            color: #333;
+        }
+        .loading-message {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+            padding: 12px;
+            background: #e8f4fd;
+            border: 1px solid #bee5eb;
+            border-radius: 8px;
+            color: #0c5460;
+            font-weight: 500;
+        }
+
+        .loading-message i {
+            margin-right: 8px;
+            animation: spin 1s linear infinite;
         }
     </style>
 </head>
@@ -314,6 +536,11 @@
         <div class="header">
             <h1><i class="fas fa-chart-line"></i> AI Stock Predictor</h1>
             <p>Neural Network-Powered Stock Price Predictions</p>
+            <br>
+            <div class="nav-links">
+                <a href="/"><i class="fas fa-home"></i> Home</a>
+                <a href="/about"><i class="fas fa-info-circle"></i> About</a>
+            </div>
         </div>
 
         <!-- Flash Messages -->
@@ -347,14 +574,31 @@
             <div class="card">
                 <h2><i class="fas fa-robot"></i> Make Prediction</h2>
                 <form method="post" id="predictionForm">
+                    <!-- new -->
                     <div class="form-group">
                         <label for="symbol">Stock Symbol *</label>
-                        <input type="text" id="symbol" name="symbol" required 
-                               placeholder="e.g., AAPL, TSLA, MSFT" 
-                               style="text-transform: uppercase;">
+                        <div class="search-container">
+                            <input type="text" id="symbol" name="symbol" required 
+                                placeholder="e.g., AAPL, TSLA, MSFT or search company name (add .NS if in NSE/BSE)" 
+                                style="text-transform: uppercase;"
+                                autocomplete="off">
+                            <div id="searchSuggestions" class="search-suggestions"></div>
+                        </div>
                         <div id="symbolValidation" class="symbol-validation" style="display: none;"></div>
+                        <div id="stockInfo" class="stock-info-display"></div>
+                        
+                        <div class="custom-stock-help">
+                            <h4><i class="fas fa-lightbulb"></i> How to find custom stocks:</h4>
+                            <ul>
+                                <li>Type any stock symbol (e.g., AAPL, GOOGL, MSFT)</li>
+                                <li>Search by company name (suggestions will appear)</li>
+                                <li>Use Yahoo Finance or Google to find stock symbols</li>
+                                <li>Most major exchanges supported (NYSE, NASDAQ, etc.)</li>
+                            </ul>
+                            <p style="margin-top: 10px;"><strong>Examples:</strong> RBLX (Roblox), COIN (Coinbase), RIVN (Rivian), etc.</p>
+                        </div>
                     </div>
-
+            <!-- new end -->
                     <div class="input-group">
                         <div class="form-group">
                             <label for="lookback">Lookback Days</label>
@@ -386,6 +630,9 @@
                             <div class="spinner"></div>
                         </div>
                     </button>
+                    <div id="loadingMessage" class="loading-message">
+                        <i class="fas fa-cog"></i> Calculating predictions, please wait... This may take 30-60 seconds.
+                    </div>
                 </form>
             </div>
         </div>
@@ -448,6 +695,85 @@
             </table>
             {% endif %}
 
+            <!-- Charts and Visualizations Section -->
+            {% if result.plots %}
+            <div class="plots-section">
+                <h3><i class="fas fa-chart-bar"></i> Analysis Charts</h3>
+                <br>
+                
+                <div class="plot-tabs">
+                    <button class="plot-tab active" onclick="showPlot('history')">
+                        <i class="fas fa-history"></i> Price History
+                    </button>
+                    <button class="plot-tab" onclick="showPlot('training')">
+                        <i class="fas fa-brain"></i> Training Progress
+                    </button>
+                    <button class="plot-tab" onclick="showPlot('predictions')">
+                        <i class="fas fa-bullseye"></i> Prediction Results
+                    </button>
+                    <button class="plot-tab" onclick="showPlot('future')">
+                        <i class="fas fa-crystal-ball"></i> Future Forecast
+                    </button>
+                </div>
+
+                <!-- Price History Plot -->
+                <div id="plot-history" class="plot-content active">
+                    <div class="plot-card">
+                        <h3><i class="fas fa-history"></i> Stock Price History & Volume</h3>
+                        <div class="plot-container">
+                            <img src="data:image/png;base64,{{ result.plots.price_history }}" 
+                                 alt="Stock Price History Chart">
+                        </div>
+                        <p style="margin-top: 15px; color: #666; font-size: 0.9rem;">
+                            Historical price data showing closing prices, highs, lows, and trading volume over the selected period.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Training Progress Plot -->
+                <div id="plot-training" class="plot-content">
+                    <div class="plot-card">
+                        <h3><i class="fas fa-brain"></i> Model Training Progress</h3>
+                        <div class="plot-container">
+                            <img src="data:image/png;base64,{{ result.plots.training }}" 
+                                 alt="Model Training Loss Chart">
+                        </div>
+                        <p style="margin-top: 15px; color: #666; font-size: 0.9rem;">
+                            Training and validation loss over epochs. Lower loss indicates better model performance.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Prediction Results Plot -->
+                <div id="plot-predictions" class="plot-content">
+                    <div class="plot-card">
+                        <h3><i class="fas fa-bullseye"></i> Prediction vs Actual Prices</h3>
+                        <div class="plot-container">
+                            <img src="data:image/png;base64,{{ result.plots.predictions }}" 
+                                 alt="Prediction Results Chart">
+                        </div>
+                        <p style="margin-top: 15px; color: #666; font-size: 0.9rem;">
+                            Comparison between actual stock prices and model predictions on test data, with prediction errors shown below.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Future Predictions Plot -->
+                <div id="plot-future" class="plot-content">
+                    <div class="plot-card">
+                        <h3><i class="fas fa-crystal-ball"></i> Future Price Forecast</h3>
+                        <div class="plot-container">
+                            <img src="data:image/png;base64,{{ result.plots.future }}" 
+                                 alt="Future Predictions Chart">
+                        </div>
+                        <p style="margin-top: 15px; color: #666; font-size: 0.9rem;">
+                            Recent historical prices with AI-generated future price predictions for the next 30 days.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
             <div class="info-section">
                 <h3><i class="fas fa-info-circle"></i> Model Information</h3>
                 <p><strong>Company:</strong> {{ result.company_name }}</p>
@@ -456,11 +782,12 @@
                    {{ result.training_params.lookback_days }} lookback days, 
                    {{ result.training_params.epochs }} epochs, 
                    {{ result.training_params.data_points }} data points</p>
-                <p><strong>Model Accuracy:</strong> RMSE: ${{ result.rmse }}, MAE: ${{ result.mae }}</p>
+                <p><strong>Model Performance:</strong> RMSE: ${{ result.rmse }}, MAE: ${{ result.mae }}</p>
                 <p style="margin-top: 15px; font-size: 0.9rem; color: #666;">
                     <i class="fas fa-exclamation-triangle"></i> 
                     <strong>Disclaimer:</strong> This prediction is for educational purposes only. 
                     Stock markets are unpredictable and past performance doesn't guarantee future results.
+                    Always consult with financial advisors before making investment decisions.
                 </p>
             </div>
         </div>
@@ -468,91 +795,428 @@
 
         <div class="footer">
             <p><i class="fas fa-brain"></i> Powered by LSTM Neural Networks | Built with Flask & TensorFlow</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+                <i class="fas fa-code"></i> Advanced AI Stock Price Prediction System
+            </p>
         </div>
     </div>
 
-    <script>
-        // Select stock from popular stocks
-        function selectStock(symbol) {
-            document.getElementById('symbol').value = symbol;
-            
-            // Update button states
-            document.querySelectorAll('.stock-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            // Validate the symbol
-            validateSymbol(symbol);
+ <script>
+    // Global variables
+    let searchTimeout;
+    let validationTimeout;
+    let currentFocus = -1;
+
+    // Stock databases for different exchanges
+    const STOCK_DATABASES = {
+        US: {
+            'AAPL': 'Apple Inc.',
+            'GOOGL': 'Alphabet Inc.',
+            'MSFT': 'Microsoft Corporation',
+            'AMZN': 'Amazon.com Inc.',
+            'TSLA': 'Tesla Inc.',
+            'META': 'Meta Platforms Inc.',
+            'NVDA': 'NVIDIA Corporation',
+            'NFLX': 'Netflix Inc.'
+        },
+        BSE: {
+            'RELIANCE': 'Reliance Industries Limited',
+            'TCS': 'Tata Consultancy Services',
+            'HDFCBANK': 'HDFC Bank Limited',
+            'INFY': 'Infosys Limited',
+            'ICICIBANK': 'ICICI Bank Limited',
+            'SBIN': 'State Bank of India'
+        }
+    };
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set default active plot tab
+        const firstTab = document.querySelector('.plot-tab');
+        if (firstTab) {
+            firstTab.classList.add('active');
+        }
+        
+        // Initialize popular stocks based on default exchange
+        updatePopularStocks();
+        
+        // Setup event listeners
+        setupEventListeners();
+    });
+
+    // Setup all event listeners
+    function setupEventListeners() {
+        // Symbol input with search suggestions
+        const symbolInput = document.getElementById('symbol');
+        if (symbolInput) {
+            symbolInput.addEventListener('input', handleSymbolInput);
+            symbolInput.addEventListener('keydown', handleKeyboardNavigation);
         }
 
-        // Symbol validation
-        let validationTimeout;
-        document.getElementById('symbol').addEventListener('input', function() {
-            const symbol = this.value.toUpperCase();
-            this.value = symbol;
-            
-            clearTimeout(validationTimeout);
-            validationTimeout = setTimeout(() => {
-                if (symbol.length > 0) {
-                    validateSymbol(symbol);
-                } else {
-                    hideValidation();
-                }
-            }, 500);
+        // Exchange selector
+        const exchangeSelect = document.getElementById('exchange');
+        if (exchangeSelect) {
+            exchangeSelect.addEventListener('change', handleExchangeChange);
+        }
+
+        // Form submission
+        const predictionForm = document.getElementById('predictionForm');
+        if (predictionForm) {
+            predictionForm.addEventListener('submit', handleFormSubmission);
+        }
+
+        // Click outside to hide suggestions
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-container')) {
+                hideSuggestions();
+            }
         });
+    }
 
-        function validateSymbol(symbol) {
-            fetch(`/api/validate_symbol?symbol=${symbol}`)
-                .then(response => response.json())
-                .then(data => {
-                    const validationDiv = document.getElementById('symbolValidation');
-                    if (data.valid) {
-                        validationDiv.className = 'symbol-validation symbol-valid';
-                        validationDiv.innerHTML = `<i class="fas fa-check-circle"></i> ${data.name} - Current: $${data.current_price.toFixed(2)}`;
-                        validationDiv.style.display = 'block';
-                    } else {
-                        validationDiv.className = 'symbol-validation symbol-invalid';
-                        validationDiv.innerHTML = `<i class="fas fa-times-circle"></i> ${data.message}`;
-                        validationDiv.style.display = 'block';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error validating symbol:', error);
-                });
-        }
-
-        function hideValidation() {
-            document.getElementById('symbolValidation').style.display = 'none';
-        }
-
-        // Form submission handling
-        document.getElementById('predictionForm').addEventListener('submit', function() {
-            const submitBtn = document.getElementById('submitBtn');
-            const btnText = document.getElementById('btnText');
-            const loading = document.getElementById('loading');
+    // Handle symbol input changes
+    function handleSymbolInput() {
+        const symbol = this.value.toUpperCase();
+        this.value = symbol;
+        
+        clearTimeout(searchTimeout);
+        clearTimeout(validationTimeout);
+        
+        if (symbol.length >= 2) {
+            searchTimeout = setTimeout(() => {
+                searchStocks(symbol);
+            }, 300);
             
+            validationTimeout = setTimeout(() => {
+                validateSymbol(symbol);
+            }, 800);
+        } else if (symbol.length === 1) {
+            // Show suggestions even for single character
+            searchTimeout = setTimeout(() => {
+                searchStocks(symbol);
+            }, 500);
+            hideValidation();
+            hideStockInfo();
+        } else {
+            hideSuggestions();
+            hideValidation();
+            hideStockInfo();
+        }
+    }
+
+    // Handle exchange change
+    function handleExchangeChange() {
+        clearSearchResults();
+        updatePopularStocks();
+    }
+
+    // Handle form submission
+    function handleFormSubmission() {
+        const submitBtn = document.getElementById('submitBtn');
+        const btnText = document.getElementById('btnText');
+        const loading = document.getElementById('loading');
+        const loadingMessage = document.getElementById('loadingMessage');
+        
+        if (submitBtn && btnText && loading) {
             submitBtn.disabled = true;
             btnText.style.display = 'none';
             loading.style.display = 'block';
+            loadingMessage.style.display = 'block';
             
-            // Reset after form submission (in case of errors)
+            // Reset after timeout (in case of errors)
             setTimeout(() => {
                 submitBtn.disabled = false;
                 btnText.style.display = 'block';
                 loading.style.display = 'none';
-            }, 30000); // 30 seconds timeout
-        });
+                loadingMessage.style.display = 'none';
+            }, 60000); // 60 seconds timeout
+        }
+    }
 
-        // Auto-hide flash messages
-        setTimeout(() => {
-            const alerts = document.querySelectorAll('.alert');
-            alerts.forEach(alert => {
-                alert.style.opacity = '0';
-                alert.style.transition = 'opacity 0.5s ease';
-                setTimeout(() => alert.remove(), 500);
+    // Select stock from popular stocks or suggestions
+    function selectStock(symbol) {
+        document.getElementById('symbol').value = symbol;
+        
+        // Update button states
+        document.querySelectorAll('.stock-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        
+        // Add active class to clicked button
+        if (event && event.target) {
+            event.target.classList.add('active');
+        }
+        
+        // Validate and get info
+        validateSymbol(symbol);
+        getStockInfo(symbol);
+        hideSuggestions();
+    }
+
+    // Search for stock suggestions
+    function searchStocks(query) {
+        if (query.length < 1) return;
+        
+        // Get selected exchange
+        const exchangeElement = document.getElementById('exchange');
+        const exchange = exchangeElement ? exchangeElement.value : 'US';
+        
+        fetch(`/api/search_stocks?query=${query}&exchange=${exchange}`)
+            .then(response => response.json())
+            .then(data => {
+                showSuggestions(data.stocks || []);
+            })
+            .catch(error => {
+                console.error('Error searching stocks:', error);
+                hideSuggestions();
             });
-        }, 5000);
-    </script>
+    }
+
+    // Show search suggestions
+    function showSuggestions(stocks) {
+        const suggestionsDiv = document.getElementById('searchSuggestions');
+        
+        if (!suggestionsDiv || stocks.length === 0) {
+            hideSuggestions();
+            return;
+        }
+        
+        let html = '';
+        stocks.forEach((stock, index) => {
+            const exchangeBadge = stock.exchange && stock.exchange !== 'US' ? 
+                `<span class="exchange-badge">${stock.exchange}</span>` : '';
+            
+            html += `
+                <div class="suggestion-item" onclick="selectSuggestion('${stock.symbol}', '${stock.name}')" data-index="${index}">
+                    <div class="suggestion-symbol">${stock.symbol} ${exchangeBadge}</div>
+                    <div class="suggestion-name">${stock.name}</div>
+                </div>
+            `;
+        });
+        
+        suggestionsDiv.innerHTML = html;
+        suggestionsDiv.style.display = 'block';
+        currentFocus = -1;
+    }
+
+    // Hide suggestions
+    function hideSuggestions() {
+        const suggestionsDiv = document.getElementById('searchSuggestions');
+        if (suggestionsDiv) {
+            suggestionsDiv.style.display = 'none';
+        }
+        currentFocus = -1;
+    }
+
+    // Select a suggestion
+    function selectSuggestion(symbol, name) {
+        document.getElementById('symbol').value = symbol;
+        hideSuggestions();
+        validateSymbol(symbol);
+        getStockInfo(symbol);
+    }
+
+    // Validate symbol
+    function validateSymbol(symbol) {
+        const exchangeElement = document.getElementById('exchange');
+        const exchange = exchangeElement ? exchangeElement.value : 'US';
+        
+        fetch(`/api/validate_symbol?symbol=${symbol}&exchange=${exchange}`)
+            .then(response => response.json())
+            .then(data => {
+                const validationDiv = document.getElementById('symbolValidation');
+                if (!validationDiv) return;
+                
+                if (data.valid) {
+                    validationDiv.className = 'symbol-validation symbol-valid';
+                    validationDiv.innerHTML = `<i class="fas fa-check-circle"></i> ${data.name} - Current: $${data.current_price?.toFixed(2) || 'N/A'}`;
+                    validationDiv.style.display = 'block';
+                } else {
+                    validationDiv.className = 'symbol-validation symbol-invalid';
+                    validationDiv.innerHTML = `<i class="fas fa-times-circle"></i> ${data.message || 'Invalid symbol'}`;
+                    validationDiv.style.display = 'block';
+                }
+            })
+            .catch(error => {
+                console.error('Error validating symbol:', error);
+                hideValidation();
+            });
+    }
+
+    // Hide validation
+    function hideValidation() {
+        const validationDiv = document.getElementById('symbolValidation');
+        if (validationDiv) {
+            validationDiv.style.display = 'none';
+        }
+    }
+
+    // Get detailed stock information
+    function getStockInfo(symbol) {
+        const exchangeElement = document.getElementById('exchange');
+        const exchange = exchangeElement ? exchangeElement.value : 'US';
+        
+        fetch(`/api/stock_info?symbol=${symbol}&exchange=${exchange}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    hideStockInfo();
+                } else {
+                    showStockInfo(data);
+                }
+            })
+            .catch(error => {
+                console.error('Error getting stock info:', error);
+                hideStockInfo();
+            });
+    }
+
+    // Show detailed stock information
+    function showStockInfo(stockData) {
+        const infoDiv = document.getElementById('stockInfo');
+        if (!infoDiv) return;
+        
+        const marketCap = stockData.market_cap ? 
+            (stockData.market_cap / 1e9).toFixed(1) + 'B' : 'N/A';
+        const currentPrice = stockData.current_price ? 
+            stockData.current_price.toFixed(2) : 'N/A';
+            
+        infoDiv.innerHTML = `
+            <h4><i class="fas fa-building"></i> ${stockData.name || 'N/A'} (${stockData.symbol})</h4>
+            <div class="stock-info-grid">
+                <div class="stock-info-item"><strong>Current Price:</strong> $${currentPrice}</div>
+                <div class="stock-info-item"><strong>Market Cap:</strong> $${marketCap}</div>
+                <div class="stock-info-item"><strong>Sector:</strong> ${stockData.sector || 'N/A'}</div>
+                <div class="stock-info-item"><strong>Industry:</strong> ${stockData.industry || 'N/A'}</div>
+            </div>
+            ${stockData.description ? `<p style="margin-top: 10px; font-size: 0.85rem; color: #666;">${stockData.description}</p>` : ''}
+        `;
+        infoDiv.style.display = 'block';
+    }
+
+    // Hide stock info
+    function hideStockInfo() {
+        const infoDiv = document.getElementById('stockInfo');
+        if (infoDiv) {
+            infoDiv.style.display = 'none';
+        }
+    }
+
+    // Update popular stocks based on selected exchange
+    function updatePopularStocks() {
+        const exchangeElement = document.getElementById('exchange');
+        const popularStocksDiv = document.getElementById('popularStocks');
+        
+        if (!exchangeElement || !popularStocksDiv) return;
+        
+        const exchange = exchangeElement.value;
+        const stocks = STOCK_DATABASES[exchange] || STOCK_DATABASES.US;
+        
+        let html = '';
+        for (const [symbol, name] of Object.entries(stocks)) {
+            html += `<button type="button" class="stock-btn" onclick="selectStock('${symbol}')" title="${name}">${symbol}</button>`;
+        }
+        popularStocksDiv.innerHTML = html;
+    }
+
+    // Clear all search results and selections
+    function clearSearchResults() {
+        const symbolInput = document.getElementById('symbol');
+        if (symbolInput) {
+            symbolInput.value = '';
+        }
+        
+        hideSuggestions();
+        hideValidation();
+        hideStockInfo();
+        
+        // Clear active stock button selection
+        document.querySelectorAll('.stock-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+    }
+
+    // Keyboard navigation for suggestions
+    function handleKeyboardNavigation(e) {
+        const suggestions = document.querySelectorAll('.suggestion-item');
+        
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            currentFocus++;
+            if (currentFocus >= suggestions.length) currentFocus = 0;
+            setActiveSuggestion(suggestions);
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            currentFocus--;
+            if (currentFocus < 0) currentFocus = suggestions.length - 1;
+            setActiveSuggestion(suggestions);
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (currentFocus > -1 && suggestions[currentFocus]) {
+                suggestions[currentFocus].click();
+            }
+        } else if (e.key === 'Escape') {
+            hideSuggestions();
+        }
+    }
+
+    // Set active suggestion for keyboard navigation
+    function setActiveSuggestion(suggestions) {
+        suggestions.forEach((suggestion, index) => {
+            suggestion.style.backgroundColor = index === currentFocus ? '#f8f9ff' : '';
+        });
+    }
+
+    // Plot tab switching
+    function showPlot(plotType) {
+        // Hide all plot contents
+        document.querySelectorAll('.plot-content').forEach(content => {
+            content.classList.remove('active');
+        });
+        
+        // Remove active class from all tabs
+        document.querySelectorAll('.plot-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        
+        // Show selected plot
+        const plotDiv = document.getElementById(`plot-${plotType}`);
+        if (plotDiv) {
+            plotDiv.classList.add('active');
+        }
+        
+        // Add active class to clicked tab
+        if (event && event.target) {
+            event.target.classList.add('active');
+        }
+    }
+
+    // Auto-hide flash messages
+    setTimeout(() => {
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(alert => {
+            alert.style.opacity = '0';
+            alert.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.remove();
+                }
+            }, 500);
+        });
+    }, 5000);
+
+    // Utility function to safely get element
+    function safeGetElement(id) {
+        return document.getElementById(id);
+    }
+
+    // Export functions for global access (if needed)
+    window.stockPredictionApp = {
+        selectStock,
+        selectSuggestion,
+        showPlot,
+        clearSearchResults,
+        updatePopularStocks
+    };
+</script>
 </body>
 </html>
