@@ -11,7 +11,7 @@ import io
 from spp2 import StockPredictorWeb
 
 app = Flask(__name__)
-app.secret_key = 'your-secret-key-change-this'  # Change this in production
+app.secret_key = os.environ.get('SECRET_KEY', 'dev-insecure-key')
 
 # Popular stocks for quick selection
 POPULAR_STOCKS = {
