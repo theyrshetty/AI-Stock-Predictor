@@ -179,6 +179,22 @@ The application supports any stock symbol available on Yahoo Finance, including:
 - **Data Dependency**: Requires sufficient historical data for training
 
 
+## Output
+
+![image](https://github.com/user-attachments/assets/cf08de79-7644-4309-8698-748ed1e7f77d)
+![image](https://github.com/user-attachments/assets/4f564b39-c6c7-470c-9887-a2b44eac282a)
+![image](https://github.com/user-attachments/assets/738954ff-0653-4539-8f9f-3aa2fd23271c)
+![image](https://github.com/user-attachments/assets/c669f639-ab84-42c3-94ac-3877b9fd4ccc)
+![image](https://github.com/user-attachments/assets/fd4b7ad0-d4a4-435f-a86f-733b0bffa0a0)
+![image](https://github.com/user-attachments/assets/5ad0ed5d-e6b7-44c1-b978-3fcec877620e)
+![image](https://github.com/user-attachments/assets/7bbbe7c8-339b-4d21-9c3f-0f650e56b8dd)
+![image](https://github.com/user-attachments/assets/c9b7a0f6-010c-4ed7-b8b9-a2bd46da2d6e)
+![image](https://github.com/user-attachments/assets/d5627501-3f5f-4ebd-bdf3-3888373c4323)
+![image](https://github.com/user-attachments/assets/e2de361e-02e7-431f-8af7-5b6ee473da7b)
+![image](https://github.com/user-attachments/assets/8364333a-8a7d-443b-80e4-c87e190e4075)
+
+
+
 ## Contributing
 
 1. Fork the repository
